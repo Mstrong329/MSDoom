@@ -311,12 +311,12 @@ function solid(top, bottom, wc, bc, tc, sc, portal, wall, ne) {
                         color(tc[0] * sc, tc[1] * sc, tc[2] * sc);
                         max[0] = tt;
                         var tt = Math.max(0, ocArr[Math.floor(i / scale)][0]);
-                        var bt = Math.max(togrid(y), ocArr[Math.floor(i / scale)][0]);
+                        var bt = Math.min(togrid(y), ocArr[Math.floor(i / scale)][1]);
                         max[0] = tt;
                         var h = bt - tt;
-
-                        rect(togrid(i), tt, scale, h);
-
+                        if(h>0){
+                            rect(togrid(i), tt, scale, h);
+                        }
                     }
                     if (bc != null) {
                         color(bc[0] * sc, bc[1] * sc, bc[2] * sc);
