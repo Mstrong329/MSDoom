@@ -91,7 +91,28 @@ function init() {
     });
 
 }
-
+function findsect(){
+	 if (insect(p, map[p.lastsect])) {
+		 return p.lastsect;
+	 }
+	 var current = p.lastsect
+	 for (var w = 0; w < map[current].walls.length; w++) {
+		if(map[current].walls[w].p>=0){
+	 if (insect(p, map[map[current].walls[w].p])) {
+		 return map[current].walls[w].p;
+	 }
+			
+			
+		}
+    }
+	  for (var sect = 0; sect < map.length; sect++) {
+        //draw3d(sect);
+        if (insect(p, map[sect])) {
+			return sect;
+        }
+    }
+	return p.lastsect;
+}
 function draw() {
 
     var rangel = clone(p.cl);
@@ -103,20 +124,13 @@ function draw() {
     }
     queue = [];
     var hit = false;
-    for (var sect = 0; sect < map.length; sect++) {
-        //draw3d(sect);
-        if (insect(p, map[sect])) {
-            p.lastsect = sect;
-            p.zp = map[sect].floor + p.h;
-            appendItem(queue, [sect, rangel, ranger]);
-            hit = true;
-        }
-    }
-    if (!hit) {
-        p.zp = map[p.lastsect].floor + p.h;
+	var nsect = findsect();
+            p.lastsect = nsect;
+            p.zp = map[nsect].floor + p.h;
+            appendItem(queue, [nsect, rangel, ranger]);
 
-        appendItem(queue, [p.lastsect, p.cl, p.cr]);
-    }
+  
+
 
     for (var i = 0; i < queue.length; i++) {
 
