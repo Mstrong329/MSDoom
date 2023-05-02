@@ -333,15 +333,14 @@ function solid(top, bottom, wc, bc, tc, sc, portal, wall, ne) {
 						}
                     }
                     if (bc != null) {
-                        color(bc[0] * sc, bc[1] * sc, bc[2] * sc);
-                        var tt = Math.min(togrid(y2), ocArr[Math.floor(i / scale)][1]);
+			color(bc[0] * sc, bc[1] * sc, bc[2] * sc);
+                        var tt = Math.max(togrid(y2), ocArr[Math.floor(i / scale)][0]);
                         var bt = ocArr[Math.floor(i / scale)][1];
                         max[1] = bt;
                         var h = bt - tt;
-
-                        rect(togrid(i), tt, scale, h);
-
-
+			if(h>0){
+                            rect(togrid(i), tt, scale, h);
+			}
                     }
                     color(wc[0] * sc, wc[1] * sc, wc[2] * sc);
                     var tt = Math.max(togrid(y), ocArr[Math.floor(i / scale)][0]);
